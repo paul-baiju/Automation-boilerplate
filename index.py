@@ -1,5 +1,11 @@
 import requests
 
+def resource_finder(selected_option):
+    return {
+        'html': 'https://raw.githubusercontent.com/paul-baiju/Automation-boilerplate/main/resources/index.html',
+        'php': 2,
+    }[selected_option]
+
 print("Select file type:")
 options = ["html", "php"]
 
@@ -15,9 +21,8 @@ def let_user_pick(options):
     return None
 
 selected_option = let_user_pick(options)
-print(selected_option)
 
-r = requests.get('https://raw.githubusercontent.com/paul-baiju/Automation-boilerplate/main/resources/index.html')
+r = requests.get(resource_finder(selected_option))
 'Requests:' in r.text
 r.headers['Content-Type']
 'text/plain; charset=utf-8'
