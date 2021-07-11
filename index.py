@@ -6,7 +6,8 @@ def resource_finder(selected_option):
     return {
         'html': 'https://raw.githubusercontent.com/paul-baiju/Automation-boilerplate/main/resources/base/index.html',
         'php': 'https://raw.githubusercontent.com/paul-baiju/Automation-boilerplate/main/resources/base/index.html',
-        'css': 'https://raw.githubusercontent.com/paul-baiju/Automation-boilerplate/main/resources/base/index.css'
+        'css': 'https://raw.githubusercontent.com/paul-baiju/Automation-boilerplate/main/resources/base/index.css',
+        'js' : 'https://raw.githubusercontent.com/paul-baiju/Automation-boilerplate/main/resources/base/index.js'
     }[selected_option]
 
 def add_css(data_css):
@@ -16,6 +17,15 @@ def add_css(data_css):
     else:
         f = open('css/style.css','a')
     f.write(data_css)
+    f.close()
+
+def add_js(data_js):
+    if not os.path.exists("js/"):
+        os.makedirs("js/")
+        f = open('js/main.js','w')
+    else:
+        f = open('css/main.js','a')
+    f.write(data_js)
     f.close()
 
 print("Select file type:")
@@ -54,6 +64,11 @@ else:
 
 r = requests.get(resource_finder("css"))
 add_css(r.text)
+r = requests.get(resource_finder("js"))
+add_js(r.text)
+
+if not os.path.exists("images/"):
+    os.makedirs("images/")
 
 pageData = str(soupData)
 f.write(pageData)
